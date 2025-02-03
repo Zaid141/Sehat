@@ -1,0 +1,26 @@
+<div class="page-container patient-dashboard">
+    <h1>Your Prescriptions</h1>
+    <div class="prescription-list">
+        {{#each prescriptions}}
+        <div class="prescription">
+            <h2>Prescription</h2>
+            <p>{{this.instructions}}</p>
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+
+<style>
+    .prescription p {
+        margin: 0;
+        white-space: pre-wrap;  /* Maintains whitespace formatting and breaks */
+    }
+    .prescription {
+        background-color: var(--opacity-black-3);
+        min-width: var(--size-13);
+        padding: var(--size-4);
+        border-radius: var(--size-1);
+        margin: var(--size-2);
+    }
+</style>

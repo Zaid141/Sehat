@@ -1,0 +1,47 @@
+
+    <div style="display: flex; flex-direction:column; align-items:center" class="meeting-form">
+        <h1>Join a Zoom Consultation</h1>
+        <div class="provider-details">
+            <h2>Name: {{name}}</h2>
+            <p>Speciality: {{speciality}}</p>
+            <p>City: {{city}}</p>
+            <p>Experience: {{years}} years</p>
+        </div>
+        <div class="buttons">
+        <a id="joinMeetingLink" href="#" class="std-button" onclick="window.open('http://google.com','_blank')">Join Meeting via Zoom</a>
+        </div>
+    </div>
+    <div id="zmmtg-root"></div>
+
+    <script type="text/javascript">
+        //const searchParams = new URLSearchParams(window.location.search);
+        //const slotId = searchParams.get('slotId');
+        const slotId = "{{slotId}}";
+        fetch('/api/create-meeting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                slotId: slotId
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                const joinLinkButton = document.getElementById('joinMeetingLink');
+                joinLinkButton.href = `/api/addReview?slotId={{slotId}}`
+                joinLinkButton.onclick = function() {
+    window.open(data.join_url, '_blank');
+};
+            })
+            .catch(error => {
+                console.error('Error creating or joining meeting', error);
+            });
+
+    </script>
+    <style>
+        .buttons {
+            margin: var(--size-4)
+        };
+    </style>
